@@ -1,0 +1,28 @@
+.title-text {
+    width: 500px;
+    height: 500px;
+    border: 5px solid black;
+}
+
+.title-img {
+    width: 500px;
+    height: 500px;
+    border: 5px solid black;
+}
+
+.buttons {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    margin: auto;
+}
+
+.buttons img {
+    width: auto;
+    height: auto;
+    margin: 15px;
+}
+
+.buttons button {
+    margin: 15px;
+}

@@ -1,0 +1,14 @@
+header {
+    position: absolute;
+    top: 0;
+    width: 1280px;
+    background-color: rgb(232, 232, 232);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+span {
+    display: flex;
+    align-items: center;
+}

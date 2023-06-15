@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import App from './routes/App.jsx';
 import Title from './routes/Title.jsx';
 import StudyBoard from './components/StudyBoard.jsx';
@@ -9,24 +9,25 @@ import './index.css'
 
 const router = createBrowserRouter([
   {
-    path: '/title',
+    path: '/',
     element: <Title />
   },
   {
-    path: '/',
+    path: '/main',
     element: <App />,
     children: [
       {
-        path: '/',
+        path: '',
         element: <StudyBoard />
       },
       {
-        path: '/create-study',
+        path: 'create-study',
         element: <StudyCreate />
       }
     ]
   }
 ])
+
 ReactDOM.render(
   <React.StrictMode>
     <RouterProvider router={router}/>

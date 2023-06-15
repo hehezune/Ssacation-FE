@@ -1,6 +1,15 @@
+import kakaoButton from '../assets/kakaoButtonMini.png';
+import logo from '../assets/logo.png';
+import './Header.css';
+
 function Header() {
     return (
-        <h1>Heaeer</h1>
+        <header>
+            <img src={logo}></img>
+            <span>
+                <img src={kakaoButton} />
+            </span>
+        </header>
     )
 }
 
