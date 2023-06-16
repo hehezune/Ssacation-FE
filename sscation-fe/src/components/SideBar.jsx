@@ -1,6 +1,24 @@
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+
 function SideBar() {
     return (
-        <h1>side</h1>
+        <List>
+            <ListItem disablePadding>
+                <ListItemButton>
+
+                <ListItemText primary="개인 학습" />
+                </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+                <ListItemButton>
+
+                <ListItemText primary="그룹 추가 +" />
+                </ListItemButton>
+            </ListItem>
+        </List>
     )
 }
 
