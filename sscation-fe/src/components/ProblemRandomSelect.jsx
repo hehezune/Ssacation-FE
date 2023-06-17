@@ -1,14 +1,8 @@
-import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Divider from '@mui/material/Divider';
-import Stack from '@mui/material/Stack';
-import Chip from '@mui/material/Chip';
-import Slider from '@mui/material/Slider';
-import { TextField, Autocomplete } from '@mui/material';
+import { Box, Paper, Grid, Divider, Stack, Chip, Slider, TextField, Autocomplete } from '@mui/material';
 import React from 'react';
 import PlusIcon from '@mui/icons-material/Add';
+import algorithmType from '../assets/AlgorithmType';
 
 // import { ThemeProvider, createTheme } from '@mui/material/styles';
 const Item = styled(Paper)(({ theme }) => ({
@@ -19,34 +13,41 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-const top100Films = [
-    { label: 'The Shawshank Redemption', year: 1994 },
-    { label: 'The Godfather', year: 1972 },];
-// const theme = createTheme({
-//     components: {
-//         MuiStack: {
-//             defaultProps: {
-//                 useFlexGap: true,
-//             }
-//         }
-//     }
-// })
-
 function StudyBoard() {
-    const [rangeValue, setRangeValue] = React.useState([5, 10]);
-    const [value, setValue] = React.useState([5, 6]);
+    const [tierRange, setTireRange] = React.useState([5, 10]);
+    const [numberOfProblems, setNumberOfProblems] = React.useState([5, 6]);
+    const [algoType, setAlgoType] = React.useState([]);
+    const algoRef = React.useRef();
 
-    const handleDelete = () => {
-        console.info('You clicked the Chip.');
+    const handleDelete = (event, idx) => {
+        const newAlgoType = algoType.slice();
+        // console.log(event)
+        newAlgoType.splice(idx, 1);
+        setAlgoType(newAlgoType);
     };
 
     const handleChange = (event, newValue) => {
-        setRangeValue(newValue);
+        setTireRange(newValue);
     };
 
     const handleChange2 = (event, newValue) => {
         setValue(newValue);
     };
+
+    const handleAlgoAdd = (event) => {
+        const newAlgoType = algoType.slice();
+        const newAlgo = algoRef.current.getElementsByTagName('input')[0].value;
+        newAlgoType.push(newAlgo);
+        setAlgoType(newAlgoType);
+        console.log(newAlgoType)
+    }
+
+    const handleProblemSelect = (event) => {
+        tierRange;
+        numberOfProblems;
+        algoType;
+        // 여기서 이걸 통해 요청
+    }
 
     return (
             <div>
@@ -76,7 +77,7 @@ function StudyBoard() {
                     <Grid item xs={9}>
                         <Slider
                             getAriaLabel={() => 'Temperature range'}
-                            value={rangeValue}
+                            value={tierRange}
                             defaultValue={10}
                             marks
                             min={1}
@@ -92,25 +93,24 @@ function StudyBoard() {
                     <Grid item xs={7.5}>
                         <Autocomplete 
                             disablePortal
-                            id="combo-box-demo" 
-                            options={top100Films}
+                            id="algorithm-select" 
+                            options={algorithmType}
                             sx={{ width: 300 }}
+                            ref={algoRef}
                             renderInput={(params) => <TextField {...params}  />}
                         />
                     </Grid>
                     <Grid item xs={1.5}>
-                        <PlusIcon/>
+                        <PlusIcon onClick={handleAlgoAdd}/>
                     </Grid>
                 </Grid>
                 <Divider>selected Algorithm</Divider>
-                <Stack direction="row" useFlexgap flexWrap="wrap">
-                    <Chip label="BFS" onDelete={handleDelete}/>
-                    <Chip label="BFS" onDelete={handleDelete}/>
-                    <Chip label="BFS" onDelete={handleDelete}/>
-                    <Chip label="BFS" onDelete={handleDelete}/>
-                    <Chip label="BFS" onDelete={handleDelete}/>
+                <Stack direction="row" flexWrap="wrap">
+                    {algoType.map((type, idx) => {
+                        return <Chip label={type} onDelete={(event) => handleDelete(event, idx)} key={type}/>
+                    })}
                 </Stack>
-                <button>시작</button>
+                <button onClick={handleProblemSelect}>시작</button>
             </Box>
             </div>
     )
