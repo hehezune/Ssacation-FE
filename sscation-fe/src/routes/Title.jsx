@@ -1,6 +1,7 @@
 import titleText from '../assets/titleText.png';
 import titleImg from '../assets/titleImg.png';
 import kakaoButton from '../assets/kakaoButton.png';
+import { Link } from 'react-router-dom';
 import './Title.css'
 function Title() {
     return (
@@ -10,7 +11,7 @@ function Title() {
                 <img className="title-img" src={titleImg}></img>
             </div>
             <div className="buttons">
-                <button>체험하기</button>
+                <Link to="/main"><button>체험하기</button></Link>
                 <img src={kakaoButton}></img>
             </div>
         </>

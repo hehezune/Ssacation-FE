@@ -1,0 +1,15 @@
+.rank {
+    flex-grow: 1;
+}
+
+.number {
+    flex-grow: 3;
+}
+
+.title {
+    flex-grow: 4;
+}
+
+.type {
+    flex-grow: 4;
+}

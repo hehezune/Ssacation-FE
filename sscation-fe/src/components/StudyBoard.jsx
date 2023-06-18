@@ -1,6 +1,18 @@
+
+import React from 'react';
+
+import ProblemRandomSelect from './ProblemRandomSelect';
+import SelectedProblem from './SelectedProblem';
+import './StudyBoard.css';
+
 function StudyBoard() {
     return (
-        <h1>studyboard</h1>
+        // <ThemeProvider theme={theme}>
+        <main>
+            <ProblemRandomSelect />
+            <SelectedProblem />
+        </main>
+        // </ThemeProvider>
     )
 }
 
