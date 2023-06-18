@@ -4,10 +4,11 @@ import {studyGroupActions} from '../store/store.jsx';
 import { useDispatch } from 'react-redux';
 // 리덕스를 통해 스터디그룹 리스트를 중앙에서 관리해야 한다.
 function SideBar() {
-
+    // useSelector로 그룹 리스트 받아오기
     const dispatch = useDispatch();
 
     const handlerSelectStudy = (event, groupName) => {
+        // console.log(groupName)
         dispatch(studyGroupActions.selectGroup(groupName));
     }
 
