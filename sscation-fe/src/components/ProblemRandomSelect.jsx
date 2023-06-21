@@ -3,8 +3,11 @@ import { Box, Paper, Grid, Divider, Stack, Chip, Slider, TextField, Autocomplete
 import React from 'react';
 import PlusIcon from '@mui/icons-material/Add';
 import algorithmType from '../assets/AlgorithmType';
-
+import { useSelector } from 'react-redux';
+import { current } from '@reduxjs/toolkit';
 // import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const tier = ['B5', 'B4', 'B3', 'B2', 'B1', 'S5', 'S4', 'S3', 'S2', 'S1', 'G5', 'G4', 'G3', 'G2', 'G1', 'P5'];
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -13,7 +16,28 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
+const getBOJUsers = function(studyGroup) {
+    const currentGroup = studyGroup.studyGroups[studyGroup.currentGroup];
+    if (typeof(currentGroup) == 'string') {
+        return `-@${currentGroup}`;
+    }
+    let str = '';
+    currentGroup.forEach(user => str + `-@${user} `);
+    return str;
+}
+
+const getAlgoType = function(algoType) {
+    return algoType.map(user => '#' + user).join(' | ');
+}
+
+const getTier = function(tierRange) {
+    const idx1 = Math.min(...tierRange);
+    const idx2 = Math.max(...tierRange);
+    return `*${tier[idx1]}..${tier[idx2]}`;
+}
+
 function StudyBoard() {
+    const studyGroup = useSelector(state => state.group);
     const [tierRange, setTireRange] = React.useState([5, 10]);
     const [numberOfProblems, setNumberOfProblems] = React.useState([5, 6]);
     const [algoType, setAlgoType] = React.useState([]);
@@ -43,9 +67,8 @@ function StudyBoard() {
     }
 
     const handleProblemSelect = (event) => {
-        tierRange;
-        numberOfProblems;
-        algoType;
+        let requestString = `(${getBOJUsers(studyGroup)} ${getTier(tierRange)}) & (${getAlgoType(algoType)})`;
+        console.log(requestString);
         // 여기서 이걸 통해 요청
     }
 

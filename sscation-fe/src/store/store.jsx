@@ -37,7 +37,7 @@ const studyGroupSlice = createSlice({
 const store = configureStore({
 
     // reducer: {account: accountSlice.reducer, studyGroup: studyGroupSlice.reducer}
-    reducer: studyGroupSlice.reducer
+    reducer: {group : studyGroupSlice.reducer }
 },
     devToolsEnhancer()
 )
