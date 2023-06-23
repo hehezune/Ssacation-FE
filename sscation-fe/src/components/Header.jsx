@@ -2,8 +2,9 @@ import kakaoButton from '../assets/kakaoButtonMini.png';
 import logo from '../assets/logo.png';
 import { Link } from 'react-router-dom';
 import './Header.css';
-
+import { useEffect } from 'react';
 function Header() {
+    
     return (
         <header>
             <Link to="/main"><img src={logo}></img></Link>

@@ -13,15 +13,15 @@ import { devToolsEnhancer } from '@redux-devtools/extension';
 const studyGroupSlice = createSlice({
     name: 'studyGroup',
     initialState: {
-        currentGroup: 'solo',
+        currentGroup: '개인 학습',
         studyGroups: {
-            solo: 'beyondthecoder'
+            '개인 학습': 'beyondthecoder'
         }
     },
     reducers: {
         selectGroup(state, action) {
             // console.log(action, action.groupName)
-            state.currentGroup = state.studyGroups[action.payload];
+            state.currentGroup = action.payload;
             console.log(state.currentGroup)
             // console.log(state.currentGroup, state.groupList);
         },

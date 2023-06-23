@@ -61,6 +61,10 @@ function StudyBoard() {
     const handleAlgoAdd = (event) => {
         const newAlgoType = algoType.slice();
         const newAlgo = algoRef.current.getElementsByTagName('input')[0].value;
+        if (newAlgoType.includes(newAlgo)) {
+            alert("이미 등록한 분류입니다.");
+            return ;
+        }
         newAlgoType.push(newAlgo);
         setAlgoType(newAlgoType);
         console.log(newAlgoType)
@@ -72,6 +76,14 @@ function StudyBoard() {
         // 여기서 이걸 통해 요청
     }
 
+    const handleAlgoEnter = (event) => {
+        if (event.key == 'Enter') {
+            if (!algorithmType.includes(algoRef.current.getElementsByTagName('input')[0].value)) {
+                return ;
+            }
+            handleAlgoAdd();
+        }
+    }
     return (
             <div>
             <div>백준 랜덤 선택기</div>
@@ -120,6 +132,7 @@ function StudyBoard() {
                             options={algorithmType}
                             sx={{ width: 300 }}
                             ref={algoRef}
+                            onKeyDown={handleAlgoEnter}
                             renderInput={(params) => <TextField {...params}  />}
                         />
                     </Grid>

@@ -45,6 +45,13 @@ function StudyCreate() {
         const newUserNames = userNames.slice();
         newUserNames.push(userNameRef.current.value);
         setUserName(newUserNames);
+        userNameRef.current.value = '';
+    }
+
+    const handleUserEnter = (event) => {
+        if (event.key == 'Enter') {
+            handleAddUser();
+        }
     }
 
     return (
@@ -62,7 +69,7 @@ function StudyCreate() {
                         <Item>스터디원</Item>
                     </Grid>
                     <Grid item xs={7.5}>
-                        <TextField id="bojName" inputRef={userNameRef} label="등록할 유저" varient="outlined" />
+                        <TextField id="bojName" inputRef={userNameRef} label="등록할 유저" varient="outlined" onKeyDown={handleUserEnter}/>
                     </Grid>
                     <Grid item xs={1.5}>
                         <PlusIcon onClick={handleAddUser} />

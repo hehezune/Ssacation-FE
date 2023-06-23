@@ -1,10 +1,10 @@
-
 import React from 'react';
-
 import ProblemRandomSelect from './ProblemRandomSelect';
 import SelectedProblem from './SelectedProblem';
 import { useSelector } from 'react-redux';
 import './StudyBoard.css';
+
+const isSelected = true;
 
 function StudyBoard() {
     const currentGroup = useSelector((state) => state.currentGroup);
@@ -13,7 +13,9 @@ function StudyBoard() {
         <main>
             <div>{currentGroup}</div>
             <ProblemRandomSelect />
-            <SelectedProblem />
+            {
+                isSelected && <SelectedProblem />
+            }
         </main>
         // </ThemeProvider>
     )
