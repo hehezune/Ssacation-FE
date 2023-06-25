@@ -18,11 +18,11 @@ const problems = [{
     title : '미친 아두이노',
     type: ''
 }]
-function ProblemRandomSelect() {
+function ProblemRandomSelect(props) {
     return (
         <Stack>
             {
-                problems.map(problem => {
+                props.problems.map(problem => {
                     return (
                         <Item key={problem.number}>
                             <div className='rank'>{problem.rank}</div>

@@ -16,27 +16,12 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-const getBOJUsers = function(studyGroup) {
-    const currentGroup = studyGroup.studyGroups[studyGroup.currentGroup];
-    if (typeof(currentGroup) == 'string') {
-        return `-@${currentGroup}`;
-    }
-    let str = '';
-    currentGroup.forEach(user => str + `-@${user} `);
-    return str;
-}
 
-const getAlgoType = function(algoType) {
-    return algoType.map(user => '#' + user).join(' | ');
-}
 
-const getTier = function(tierRange) {
-    const idx1 = Math.min(...tierRange);
-    const idx2 = Math.max(...tierRange);
-    return `*${tier[idx1]}..${tier[idx2]}`;
-}
-
-function StudyBoard() {
+function StudyBoard(props) {
+    // 여기서 해야할 건 랜덤 문제 선택한 스트링을 axios로 보내주는 것이다.
+    // 그에 따라 골라진 문제를 받아오는 것
+    // 
     const studyGroup = useSelector(state => state.group);
     const [tierRange, setTireRange] = React.useState([5, 10]);
     const [numberOfProblems, setNumberOfProblems] = React.useState([5, 6]);
@@ -68,12 +53,6 @@ function StudyBoard() {
         newAlgoType.push(newAlgo);
         setAlgoType(newAlgoType);
         console.log(newAlgoType)
-    }
-
-    const handleProblemSelect = (event) => {
-        let requestString = `(${getBOJUsers(studyGroup)} ${getTier(tierRange)}) & (${getAlgoType(algoType)})`;
-        console.log(requestString);
-        // 여기서 이걸 통해 요청
     }
 
     const handleAlgoEnter = (event) => {
@@ -146,7 +125,7 @@ function StudyBoard() {
                         return <Chip label={type} onDelete={(event) => handleDelete(event, idx)} key={type}/>
                     })}
                 </Stack>
-                <button onClick={handleProblemSelect}>시작</button>
+                <button onClick={props.onHandle}>시작</button>
             </Box>
             </div>
     )

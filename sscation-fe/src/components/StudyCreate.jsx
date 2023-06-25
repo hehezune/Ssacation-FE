@@ -3,7 +3,7 @@ import React from 'react';
 import PlusIcon from '@mui/icons-material/Add';
 import { Box, Paper, Grid, Divider, Stack, Chip, TextField} from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { studyGroupActions } from '../store/store';
+import { userActions } from '../store/store';
 import { useNavigate } from 'react-router-dom';
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -33,7 +33,7 @@ function StudyCreate() {
     const handleAddStudy = (event) => {
         const action = {};
         action[studyNameRef.current.value] = userNames;
-        dispatch(studyGroupActions.createGroup(action));
+        dispatch(userActions.createGroup(action));
         navigate('/main')
     }
 

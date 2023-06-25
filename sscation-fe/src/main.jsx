@@ -8,6 +8,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './index.css'
 import { Provider } from 'react-redux';
 import store from './store/store.jsx';
+import KakaoRedirect from './routes/KakaoRedirect.jsx';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
         element: <StudyCreate />
       }
     ]
+  },
+  {
+    path: '/kakao',
+    element: <KakaoRedirect />
   }
 ])
 
