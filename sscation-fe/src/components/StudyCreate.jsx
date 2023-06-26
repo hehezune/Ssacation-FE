@@ -2,6 +2,9 @@ import { styled } from '@mui/material/styles';
 import React from 'react';
 import PlusIcon from '@mui/icons-material/Add';
 import { Box, Paper, Grid, Divider, Stack, Chip, TextField} from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { userActions } from '../store/store';
+import { useNavigate } from 'react-router-dom';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -13,9 +16,12 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 function StudyCreate() {
-    const [studyName, setStudyName] = React.useState();
     const [userNames, setUserName] = React.useState([]);
     const userNameRef = React.useRef();
+    const studyNameRef = React.useRef();
+    // 시작 버튼 눌렀을때 그룹 등록할 핸들러 - dispatch
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleDelete = (event, idx) => {
         const newUserNames = userNames.slice();
@@ -24,16 +30,28 @@ function StudyCreate() {
         setUserName(newUserNames);
     }
     
-    const handleAddStudy = (event, value) => {
-        studyName;
-        userNames;
+    const handleAddStudy = (event) => {
+        const action = {};
+        action[studyNameRef.current.value] = userNames;
+        dispatch(userActions.createGroup(action));
+        navigate('/main')
     }
 
     const handleAddUser = (event) => {
+        if (userNames.includes(userNameRef.current.value)) {
+            alert('이미 등록한 아이디입니다.');
+            return ;
+        }
         const newUserNames = userNames.slice();
-        const user = userNameRef.current.getElementsByTagName('input')[0].value;
-        newUserNames.push(user);
+        newUserNames.push(userNameRef.current.value);
         setUserName(newUserNames);
+        userNameRef.current.value = '';
+    }
+
+    const handleUserEnter = (event) => {
+        if (event.key == 'Enter') {
+            handleAddUser();
+        }
     }
 
     return (
@@ -45,13 +63,13 @@ function StudyCreate() {
                         <Item>이름</Item>
                     </Grid>
                     <Grid item xs={9}>
-                        <TextField id="studyName" value={studyName} label="스터디 이름" varient="outlined" />
+                        <TextField id="studyName" inputRef={studyNameRef} label="스터디 이름" varient="outlined" />
                     </Grid>
                     <Grid item xs={3}>
                         <Item>스터디원</Item>
                     </Grid>
                     <Grid item xs={7.5}>
-                        <TextField id="bojName" ref={userNameRef} label="등록할 유저" varient="outlined" />
+                        <TextField id="bojName" inputRef={userNameRef} label="등록할 유저" varient="outlined" onKeyDown={handleUserEnter}/>
                     </Grid>
                     <Grid item xs={1.5}>
                         <PlusIcon onClick={handleAddUser} />

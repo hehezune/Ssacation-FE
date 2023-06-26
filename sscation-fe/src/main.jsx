@@ -6,6 +6,9 @@ import StudyBoard from './components/StudyBoard.jsx';
 import StudyCreate from './components/StudyCreate.jsx';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './index.css'
+import { Provider } from 'react-redux';
+import store from './store/store.jsx';
+import KakaoRedirect from './routes/KakaoRedirect.jsx';
 
 const router = createBrowserRouter([
   {
@@ -25,12 +28,18 @@ const router = createBrowserRouter([
         element: <StudyCreate />
       }
     ]
+  },
+  {
+    path: '/kakao',
+    element: <KakaoRedirect />
   }
 ])
 
 ReactDOM.render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

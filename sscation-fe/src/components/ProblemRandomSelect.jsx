@@ -3,8 +3,11 @@ import { Box, Paper, Grid, Divider, Stack, Chip, Slider, TextField, Autocomplete
 import React from 'react';
 import PlusIcon from '@mui/icons-material/Add';
 import algorithmType from '../assets/AlgorithmType';
-
+import { useSelector } from 'react-redux';
+import { current } from '@reduxjs/toolkit';
 // import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const tier = ['B5', 'B4', 'B3', 'B2', 'B1', 'S5', 'S4', 'S3', 'S2', 'S1', 'G5', 'G4', 'G3', 'G2', 'G1', 'P5'];
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -13,7 +16,13 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-function StudyBoard() {
+
+
+function StudyBoard(props) {
+    // 여기서 해야할 건 랜덤 문제 선택한 스트링을 axios로 보내주는 것이다.
+    // 그에 따라 골라진 문제를 받아오는 것
+    // 
+    const studyGroup = useSelector(state => state.group);
     const [tierRange, setTireRange] = React.useState([5, 10]);
     const [numberOfProblems, setNumberOfProblems] = React.useState([5, 6]);
     const [algoType, setAlgoType] = React.useState([]);
@@ -37,18 +46,23 @@ function StudyBoard() {
     const handleAlgoAdd = (event) => {
         const newAlgoType = algoType.slice();
         const newAlgo = algoRef.current.getElementsByTagName('input')[0].value;
+        if (newAlgoType.includes(newAlgo)) {
+            alert("이미 등록한 분류입니다.");
+            return ;
+        }
         newAlgoType.push(newAlgo);
         setAlgoType(newAlgoType);
         console.log(newAlgoType)
     }
 
-    const handleProblemSelect = (event) => {
-        tierRange;
-        numberOfProblems;
-        algoType;
-        // 여기서 이걸 통해 요청
+    const handleAlgoEnter = (event) => {
+        if (event.key == 'Enter') {
+            if (!algorithmType.includes(algoRef.current.getElementsByTagName('input')[0].value)) {
+                return ;
+            }
+            handleAlgoAdd();
+        }
     }
-
     return (
             <div>
             <div>백준 랜덤 선택기</div>
@@ -97,6 +111,7 @@ function StudyBoard() {
                             options={algorithmType}
                             sx={{ width: 300 }}
                             ref={algoRef}
+                            onKeyDown={handleAlgoEnter}
                             renderInput={(params) => <TextField {...params}  />}
                         />
                     </Grid>
@@ -110,7 +125,7 @@ function StudyBoard() {
                         return <Chip label={type} onDelete={(event) => handleDelete(event, idx)} key={type}/>
                     })}
                 </Stack>
-                <button onClick={handleProblemSelect}>시작</button>
+                <button onClick={props.onHandle}>시작</button>
             </Box>
             </div>
     )
